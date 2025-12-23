@@ -1,7 +1,13 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends CI_Controller
+{
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('auth_model');
+	}
 
 	/**
 	 * Index Page for this controller.
@@ -20,6 +26,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->auth_model->is_logged_in();
 		$this->load->view('welcome_message');
 	}
 }
