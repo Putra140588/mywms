@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Index extends CI_Controller
+class User extends CI_Controller
 {
     public function __construct()
     {
@@ -10,8 +10,8 @@ class Index extends CI_Controller
     }
     public function index()
     {
-
-        $data['activeurl'] = 'index';
-        loadview('dashboard/index', $data);
+        $data['sql'] = $this->db->get('users')->result();
+        $data['activeurl'] = 'user';
+        loadview('users/index', $data);
     }
 }

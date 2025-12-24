@@ -1,0 +1,2 @@
+ <link href="<?= base_url() ?>assets/datatables/css/buttons.dataTables.css" rel="stylesheet" type="text/css" />
+ <link href="<?= base_url() ?>assets/datatables/css/dataTables.dataTables.css" rel="stylesheet" type="text/css" />

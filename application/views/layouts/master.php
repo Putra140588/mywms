@@ -13,12 +13,14 @@
     <!--end::Fonts-->
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="<?= base_url() ?>assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="<?= base_url() ?>assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="<? //= base_url() 
+                        ?>assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" /> -->
     <!--end::Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="<?= base_url() ?>assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url() ?>assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+    <?php $this->load->view('layouts/cssstyle'); ?>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -50,12 +52,12 @@
         <!--begin::Page-->
         <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
             <!--begin::Header-->
-            <?php $this->load->view('layout/header'); ?>
+            <?php $this->load->view('layouts/header'); ?>
             <!--end::Header-->
             <!--begin::Wrapper-->
             <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
                 <!--begin::Sidebar-->
-                <?php $this->load->view('layout/sidebar'); ?>
+                <?php $this->load->view('layouts/sidebar'); ?>
                 <!--end::Sidebar-->
                 <!--begin::Main-->
                 <?php $this->load->view($main); ?>
@@ -68,11 +70,11 @@
     <!--end::App-->
     <!--begin::Drawers-->
     <!--begin::Activities drawer-->
-    <?php $this->load->view('layout/activities'); ?>
+    <?php $this->load->view('layouts/activities'); ?>
     <!--end::Activities drawer-->
 
     <!--end::Drawers-->
-    <?php $this->load->view('layout/footer'); ?>
+    <?php $this->load->view('layouts/footer'); ?>
 </body>
 <!--end::Body-->
 

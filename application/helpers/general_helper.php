@@ -9,3 +9,9 @@ function pre($data, $next = false)
         exit;
     }
 }
+function loadview($viewfile, $data = [])
+{
+    $CI = get_instance();
+    $data['main'] = $viewfile;
+    $CI->load->view('layouts/master', $data);
+}
