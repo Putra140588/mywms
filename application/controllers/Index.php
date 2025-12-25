@@ -10,7 +10,6 @@ class Index extends CI_Controller
     }
     public function index()
     {
-
         $data['activeurl'] = 'index';
         loadview('dashboard/index', $data);
     }

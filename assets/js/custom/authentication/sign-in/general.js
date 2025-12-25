@@ -11,8 +11,8 @@ var KTSigninGeneral = function() {
                                 message: "User Name is required"
                             },
                             stringLength: {
-                                min: 3,
-                                message: "User Name must be at least 3 characters"
+                                min: 4,
+                                message: "User Name must be at least 4 characters"
                             }
                         }
                     },
@@ -21,7 +21,7 @@ var KTSigninGeneral = function() {
                             notEmpty: {
                                 message: "The password is required"
                             },
-                             stringLength: {
+                            stringLength: {
                                 min: 6,
                                 message: "Password must be at least 6 characters"
                             }

@@ -57,11 +57,11 @@
                              </a>
                          </div>
                          <div class="menu-item">
-                             <a class="menu-link" href="<?= base_url('group') ?>" data-url="group">
+                             <a class="menu-link" href="<?= base_url('role') ?>" data-url="role">
                                  <span class="menu-bullet">
                                      <span class="bullet bullet-dot"></span>
                                  </span>
-                                 <span class="menu-title">Group</span>
+                                 <span class="menu-title">Role</span>
                              </a>
                          </div>
                          <div class="menu-item">

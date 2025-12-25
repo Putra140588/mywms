@@ -11,20 +11,24 @@ class Auth_model extends CI_Model
     {
         // pre($this->generate_password_hash('123456'));
         $username = trim($username);
-        $this->db->where('username', $username);
-        $this->db->where('active', 1);
-        $this->db->where('deleted', 0);
+        $this->db->select('users.*, roles.name as role_name');
+        $this->db->where('users.username', $username);
+        $this->db->where('users.active', 1);
+        $this->db->where('users.deleted', 0);
+        $this->db->join('roles', 'roles.id = users.role_id', 'left');
         $this->db->limit(1);
         $user = $this->db->get('users')->row();
         if ($user && password_verify($password, $user->password)) {
             $session_data = [
-                'adminid' => $user->id,
+                'user_id' => $user->id,
                 'name' => $user->name,
                 'username' => $user->username,
                 'phone' => $user->phone,
                 'email' => $user->email,
-                'group_code' => $user->group_code,
+                'role_id' => $user->role_id,
+                'role_name' => $user->role_name,
                 'companycode' => $user->companycode,
+                'picture' => $user->picture,
                 'logged_in' => true
             ];
             $this->session->set_userdata($session_data);

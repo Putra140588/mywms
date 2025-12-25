@@ -15,3 +15,11 @@ function loadview($viewfile, $data = [])
     $data['main'] = $viewfile;
     $CI->load->view('layouts/master', $data);
 }
+function ymd($date)
+{
+    return date('Y-m-d', strtotime($date));
+}
+function dmy($date)
+{
+    return date('d-m-Y', strtotime($date));
+}

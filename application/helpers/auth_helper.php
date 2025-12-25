@@ -5,7 +5,7 @@ function is_logged_in()
 {
     $CI = &get_instance();
     // Session check
-    if (!$CI->session->userdata('adminid')) {
+    if (!$CI->session->userdata('logged_in')) {
         // destroy session (optional but recommended)
         $CI->session->sess_destroy();
 
@@ -17,7 +17,7 @@ function is_ready_logged_in()
 {
     $CI = &get_instance();
     // Session check
-    if ($CI->session->userdata('adminid')) {
+    if ($CI->session->userdata('logged_in')) {
         redirect('index'); // change to your login controller
         exit;
     }
