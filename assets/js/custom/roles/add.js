@@ -1,16 +1,15 @@
 "use strict";
 
-var KTUsersAddUser = function () {
+var KTUsersAddRole = function () {
     let modalEl;
     let formEl;
     let modal;
 
     return {
         init: function () {
-            modalEl = document.getElementById("kt_modal_add_user");
+            modalEl = document.getElementById("kt_modal_add_role");
             if (!modalEl) return;
-
-            formEl = modalEl.querySelector("#kt_modal_add_user_form");
+            formEl = modalEl.querySelector("#kt_modal_add_role_form");
             if (!formEl) return;
 
             modal = bootstrap.Modal.getOrCreateInstance(modalEl);
@@ -20,92 +19,13 @@ var KTUsersAddUser = function () {
             // =============================
             const validator = FormValidation.formValidation(formEl, {
                 fields: {
-                    name: {
+                    role_name: {
                         validators: {
                             notEmpty: {
                                 message: "Full name is required"
                             }
                         }
                     },
-                    email: {
-                        validators: {
-                            notEmpty: {
-                                message: "Valid email address is required"
-                            },
-                            emailAddress: {
-                                message: "The value is not a valid email address"
-                            }
-                        }
-                    },
-                    phone:{
-                        validators: {
-                            notEmpty: {
-                                message: "Phone number is required"
-                            },
-                            regexp: {
-                                regexp: /^[0-9]+$/,
-                                message: "Phone number can only contain numbers"
-                            }
-                        }
-                    },
-                    username:{
-                        validators: {
-                            notEmpty: {
-                                message: "Username is required"
-                            },
-                            stringLength: {
-                                min: 5,
-                                message: "Username must be at least 5 characters long"
-                            },
-                            regexp: {
-                                regexp: /^[a-z0-9]+$/,
-                                message: "Username must be lowercase letters and numbers only"
-                            }
-                        }
-                    },
-                    //check if form is for edit or add user
-                    password: (formEl && formEl.getAttribute('action') && formEl.getAttribute('action').includes('user/edit')) ? {
-                        validators: {
-                            stringLength: {
-                                min: 6,
-                                message: "Password must be at least 6 characters long"
-                            }
-                        }
-                    } : {
-                        validators: {
-                            notEmpty: {
-                                message: "The password is required"
-                            },
-                            stringLength: {
-                                min: 6,
-                                message: "Password must be at least 6 characters long"
-                            }
-                        }
-                    },
-                    company:{
-                        validators: {
-                            notEmpty: {
-                                message: "Company selection is required"
-                            }
-                        }
-                    },
-                    user_role:{
-                        validators: {
-                            notEmpty: {
-                                message: "Role selection is required"
-                            }
-                        }   
-                    },
-                    file: {
-                        validators: {
-                            file: {
-                                extension: 'jpg,jpeg,png,pdf',
-                                type: 'image/jpeg,image/png,application/pdf',
-                                maxSize: 1048576, // 1MB
-                                message: 'Please choose a valid file (jpg, jpeg, png, pdf, max 1MB)'
-                            }
-                        }
-                    }
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -120,7 +40,7 @@ var KTUsersAddUser = function () {
             // =============================
             // Submit
             // =============================
-            const submitBtn = modalEl.querySelector('[data-kt-users-modal-action="submit"]');
+            const submitBtn = modalEl.querySelector('[data-kt-modal-action="submit"]');
             if (submitBtn) {
                 submitBtn.addEventListener("click", function (e) {
                     e.preventDefault();
@@ -206,7 +126,7 @@ var KTUsersAddUser = function () {
             // Cancel & Close
             // =============================
             ['cancel', 'close'].forEach(action => {
-                const btn = modalEl.querySelector(`[data-kt-users-modal-action="${action}"]`);
+                const btn = modalEl.querySelector(`[data-kt-modal-action="${action}"]`);
                 if (!btn) return;
 
                 btn.addEventListener("click", function (e) {

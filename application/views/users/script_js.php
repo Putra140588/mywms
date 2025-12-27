@@ -1,1 +1,1 @@
-<script src="<?= base_url() ?>assets/js/custom/apps/user-management/users/list/add.js"></script>
+<script src="<?= base_url() ?>assets/js/custom/users/add.js"></script>

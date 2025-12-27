@@ -26,9 +26,4 @@ class Login extends CI_Controller
             return;
         }
     }
-    public function logout()
-    {
-        $this->auth_model->logout();
-        redirect('login');
-    }
 }

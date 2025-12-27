@@ -82,10 +82,10 @@ var KTUsersAddUser = function () {
                             }
                         }
                     },
-                    company:{
+                    outlet:{
                         validators: {
                             notEmpty: {
-                                message: "Company selection is required"
+                                message: "Outlet selection is required"
                             }
                         }
                     },

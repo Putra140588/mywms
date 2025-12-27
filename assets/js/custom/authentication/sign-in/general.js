@@ -11,8 +11,12 @@ var KTSigninGeneral = function() {
                                 message: "User Name is required"
                             },
                             stringLength: {
-                                min: 4,
-                                message: "User Name must be at least 4 characters"
+                                min: 5,
+                                message: "User Name must be at least 5 characters"
+                            },
+                            regexp: {
+                                regexp: /^[a-z0-9]+$/,
+                                message: "Username must be lowercase letters and numbers only"
                             }
                         }
                     },

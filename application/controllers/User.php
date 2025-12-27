@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends CI_Controller
+class User extends MY_Controller
 {
     public function __construct()
     {
@@ -9,22 +9,27 @@ class User extends CI_Controller
         $this->load->model('Users_model');
         $this->load->model('Auth_model');
         $this->load->model('Roles_model');
-        $this->load->model('Company_model');
-        is_logged_in();
+        $this->load->model('Outlet_model');
+        $this->load->model('Actionlog_model');
     }
     public function index()
     {
+        $this->check_permission('read');
         $joined_date_range = $this->input->get('joined_date_range');
         $data['sql'] = $this->Users_model->get_users($joined_date_range);
         $data['title'] = 'User List';
         $data['joined_date_range'] = $joined_date_range;
         $data['activeurl'] = 'user';
         $data['script_js'] = 'users/script_js';
+        $data['can_create'] = $this->can('create');
+        $data['can_update'] = $this->can('update');
+        $data['can_delete'] = $this->can('delete');
+        $data['hide_actions'] = !($data['can_update'] || $data['can_delete']);
         loadview('users/index', $data);
     }
     public function add_user()
     {
-        $data['company'] = $this->Company_model->get_company();
+        $data['outlet'] = $this->Outlet_model->get_outlet();
         $data['roles'] = $this->Roles_model->get_all_roles();
         $this->load->view('users/add_user_modal', $data);
     }
@@ -36,7 +41,7 @@ class User extends CI_Controller
         $phone = $this->input->post('phone', true);
         $username = strtolower(trim($this->input->post('username', true)));
         $password = $this->input->post('password', true);
-        $company = $this->input->post('company', true);
+        $outlet = $this->input->post('outlet', true);
         $active = ($this->input->post('active', true) !== null) ? 1 : 0;
         $role_id = $this->input->post('user_role', true);
 
@@ -70,18 +75,20 @@ class User extends CI_Controller
         $input['phone'] = $phone;
         $input['username'] = $username;
         $input['password'] = $this->Auth_model->generate_password_hash($password);
-        $input['companycode'] = $company;
+        $input['outlet'] = $outlet;
         $input['active'] = $active;
         $input['role_id'] = $role_id;
         $input['created_at'] = date('Y-m-d H:i:s');
         $input['created_by'] = $this->session->userdata('user_id');
         $this->db->insert('users', $input);
+        $user_id = $this->db->insert_id();
+        log_action($input, 'users', 'id', $user_id, 'insert');
         $this->db->trans_complete();
         echo json_encode(['status' => 'success', 'message' => 'User added successfully.']);
     }
     public function edit_user($user_id)
     {
-        $data['company'] = $this->Company_model->get_company();
+        $data['outlet'] = $this->Outlet_model->get_outlet();
         $data['roles'] = $this->Roles_model->get_all_roles();
         $data['user'] = $this->Users_model->get_user_by($user_id);
         $this->load->view('users/edit_user_modal', $data);
@@ -94,7 +101,7 @@ class User extends CI_Controller
         $email = $this->input->post('email', true);
         $username = strtolower(trim($this->input->post('username', true)));
         $password = $this->input->post('password', true);
-        $company = $this->input->post('company', true);
+        $outlet = $this->input->post('outlet', true);
         $phone = $this->input->post('phone', true);
         $role_id = $this->input->post('user_role', true);
         $active = ($this->input->post('active') !== null) ? 1 : 0;
@@ -139,12 +146,13 @@ class User extends CI_Controller
         if (!empty($password)) {
             $input['password'] = $this->Auth_model->generate_password_hash($password);
         }
-        $input['companycode'] = $company;
+        $input['outlet'] = $outlet;
         $input['phone'] = $phone;
         $input['role_id'] = $role_id;
         $input['active'] = $active;
         $input['updated_at'] = date('Y-m-d H:i:s');
         $input['updated_by'] = $this->session->userdata('user_id');
+        log_action($input, 'users', 'id', $user_id, 'update');
         $this->db->where('id', $user_id);
         $this->db->update('users', $input);
         $this->db->trans_complete();
@@ -152,12 +160,20 @@ class User extends CI_Controller
     }
     public function delete_user($user_id)
     {
+        $this->db->trans_start();
         $user = $this->Users_model->get_user_by($user_id);
         if (!$user) {
             echo json_encode(['status' => 'error', 'message' => 'User not found.']);
             return;
         }
-        $this->db->update('users', ['deleted' => 1, 'active' => 0], ['id' => $user_id]);
+
+        $updatedata['deleted'] = 1;
+        $updatedata['active'] = 0;
+        $updatedata['updated_at'] = date('Y-m-d H:i:s');
+        $updatedata['updated_by'] = $this->session->userdata('user_id');
+        log_action($updatedata, 'users', 'id', $user_id, 'delete');
+        $this->db->update('users', $updatedata, ['id' => $user_id]);
+        $this->db->trans_complete();
         echo json_encode(['status' => 'success', 'message' => 'User deleted successfully.']);
     }
 }

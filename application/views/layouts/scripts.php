@@ -2,11 +2,15 @@
 <script src="<?= base_url() ?>assets/datatables/js/jquery-3.7.1.js"></script>
 <script src="<?= base_url() ?>assets/js/scripts.bundle.js"></script>
 <script>
+    const base_url = "<?= base_url(); ?>";
+    const can_export = <?= isset($can_export) && $can_export ? 'true' : 'false' ?>;
     <?php if (isset($activeurl)) : ?>
         $('[data-url="<?= $activeurl ?>"]').not('.menu-item-level1').addClass("active");
         $('[data-url="<?= $activeurl ?>"]').parents('.menu-item').not('.menu-item-level2').addClass("here show");
     <?php endif; ?>
 </script>
+<script src="<?= base_url('assets/js/session-timeout.js') ?>"></script>
+
 <!--end::Global Javascript Bundle-->
 
 <!-- <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -32,6 +36,7 @@
 <script src="<?= base_url() ?>assets/datatables/js/jszip.min.js"></script>
 <script src="<?= base_url() ?>assets/datatables/js/vfs_fonts.js"></script>
 <script src="<?= base_url() ?>assets/datatables/js/buttons.html5.min.js"></script>
+<script src="<?= base_url() ?>assets/datatables/js/buttons.print.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/global/plugins.bundle.js"></script>
-<script src="<?= base_url() ?>assets/js/globalscript.js"></script>
 <?php $script_js = isset($script_js) ? $this->load->view($script_js) : ''; ?>
+<script src="<?= base_url() ?>assets/js/globalscript.js"></script>

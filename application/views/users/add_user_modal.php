@@ -57,11 +57,11 @@
                 <input type="text" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Password" />
             </div>
             <div class="d-flex flex-column mb-7 fv-row">
-                <label class="required fw-semibold fs-6 mb-2">Company</label>
-                <select name="company" aria-label="Select a Company" data-control="select2" data-placeholder="Select a Company..." data-dropdown-parent="#kt_modal_add_user" class="form-select form-select-solid fw-bold">
-                    <option value="">Select a Company...</option>
-                    <?php foreach ($company as $comp) : ?>
-                        <option value="<?= htmlspecialchars($comp->code) ?>"><?= htmlspecialchars($comp->name) ?></option>
+                <label class="required fw-semibold fs-6 mb-2">Outlet</label>
+                <select name="outlet" aria-label="Select an Outlet" data-control="select2" data-placeholder="Select an Outlet..." data-dropdown-parent="#kt_modal_add_user" class="form-select form-select-solid fw-bold">
+                    <option value="">Select an Outlet...</option>
+                    <?php foreach ($outlet as $out) : ?>
+                        <option value="<?= htmlspecialchars($out->code) ?>"><?= htmlspecialchars($out->name) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -78,7 +78,9 @@
             </div>
             <div class="mb-5">
                 <label class="required fw-semibold fs-6 mb-5">Role</label>
-                <?php foreach ($roles as $role) : ?>
+                <?php foreach ($roles as $role) :
+                    if (!is_superadmin() && $role->id == 1) continue;
+                ?>
                     <div class="d-flex fv-row mb-3">
                         <div class="form-check form-check-custom form-check-solid">
                             <input class="form-check-input me-3" name="user_role" type="radio" value="<?= $role->id ?>" />

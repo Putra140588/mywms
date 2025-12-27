@@ -18,7 +18,12 @@ function is_ready_logged_in()
     $CI = &get_instance();
     // Session check
     if ($CI->session->userdata('logged_in')) {
-        redirect('index'); // change to your login controller
+        redirect('dashboard'); // change to your login controller
         exit;
     }
+}
+function is_superadmin()
+{
+    $CI = &get_instance();
+    return (int)$CI->session->userdata('role_id') === 1;
 }

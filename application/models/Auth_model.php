@@ -27,8 +27,9 @@ class Auth_model extends CI_Model
                 'email' => $user->email,
                 'role_id' => $user->role_id,
                 'role_name' => $user->role_name,
-                'companycode' => $user->companycode,
+                'outlet' => $user->outlet,
                 'picture' => $user->picture,
+                'last_activity' => time(),
                 'logged_in' => true
             ];
             $this->session->set_userdata($session_data);

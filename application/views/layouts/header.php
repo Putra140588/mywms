@@ -7,7 +7,7 @@
                 <i class="ki-outline ki-abstract-14 fs-2"></i>
             </div>
             <!--begin::Logo image-->
-            <a href="<?= base_url('index') ?>">
+            <a href="<?= base_url('dashboard') ?>">
                 <img alt="Logo" src="assets/media/logos/demo55-small.svg" class="h-25px theme-light-show" />
                 <img alt="Logo" src="assets/media/logos/demo55-small-dark.svg" class="h-25px theme-dark-show" />
             </a>
