@@ -32,4 +32,33 @@ class Permission_model extends CI_Model
 
         return $result;
     }
+    public function get_role_permission($role_id)
+    {
+        $this->db->from('role_permissions');
+        $this->db->where('role_id', $role_id);
+        return $this->db->get()->result_array();
+    }
+    public function get_role_access($role_id)
+    {
+        $this->db->from('role_access');
+        $this->db->where('role_id', $role_id);
+        return $this->db->get()->result_array();
+    }
+    public function reset_role_permissions($role_id)
+    {
+        $this->db->where('role_id', $role_id)->delete('role_permissions');
+    }
+
+    public function save_role_permission($data)
+    {
+        $this->db->insert_batch('role_permissions', $data);
+    }
+    public function reset_role_access($role_id)
+    {
+        $this->db->where('role_id', $role_id)->delete('role_access');
+    }
+    public function save_role_access($data)
+    {
+        $this->db->insert_batch('role_access', $data);
+    }
 }

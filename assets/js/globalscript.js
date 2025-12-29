@@ -166,6 +166,9 @@ function initAjaxModal() {
     if (typeof KTUsersAddRole !== 'undefined') {
         KTUsersAddRole.init();
     }
+    if (typeof KTUpdateRoleAccess !== 'undefined') {
+        KTUpdateRoleAccess.init();
+    }
 }
  function ajaxModal(url, modalId, loadform = true) {
         const $modal = $('#' + modalId);

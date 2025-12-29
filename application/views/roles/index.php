@@ -75,6 +75,7 @@
                                 $no = 1;
                                 foreach ($sql as $row) {
                                     $active_badge = ($row->active == 1) ? '<span class="badge badge-light-success">Active</span>' : '<span class="badge badge-light-danger">Inactive</span>';
+                                    if ($row->id == 1) continue;
                                 ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
@@ -85,7 +86,7 @@
                                         <td><?= dmy($row->created_at) ?></td>
                                         <td><?= $row->creator_name ?></td>
                                         <td><?= $row->updater_name ?></td>
-                                        <td><?= dmy($row->updated_at) ?></td>
+                                        <td><?= (!empty($row->updated_at) ? dmy($row->updated_at) : '') ?></td>
                                         <?php if (!$hide_actions) : ?>
                                             <td class="text-end no-export">
                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm btn-actions" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

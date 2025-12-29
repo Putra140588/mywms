@@ -107,6 +107,7 @@ class MY_Controller extends CI_Controller
     {
         // render view jadi STRING
         $html = $this->load->view('layouts/master', [
+            'title'=>'Access Denied',
             'main' => 'errors/access_denied'
         ], true);
 
