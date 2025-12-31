@@ -56,4 +56,15 @@ class Actionlog_model extends CI_Model
         $this->log_action($action, $table, $id, $data);
         return true;
     }
+    public function GetOldNewDataDelete($newdata, $table, $keyfield, $id, $action)
+    {
+        $old_data = array();
+        $this->db->where($keyfield, $id);
+        $this->db->from($table);
+        $query  = $this->db->get()->result_array();
+        if (count($query) > 0) $old_data = $query;
+        $data =  array('old_data' => $old_data, 'new_data' => $newdata);
+        $this->log_action($action, $table, $id, $data);
+        return true;
+    }
 }

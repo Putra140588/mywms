@@ -15,6 +15,12 @@ class Login extends CI_Controller
     }
     public function check()
     {
+
+        if (!$this->input->post()) {
+            $this->session->set_flashdata('danger', 'Invalid request method.');
+            redirect('login');
+            exit;
+        }
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $check_login = $this->auth_model->login($username, $password);

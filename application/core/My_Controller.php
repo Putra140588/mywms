@@ -107,7 +107,7 @@ class MY_Controller extends CI_Controller
     {
         // render view jadi STRING
         $html = $this->load->view('layouts/master', [
-            'title'=>'Access Denied',
+            'title' => 'Access Denied',
             'main' => 'errors/access_denied'
         ], true);
 
@@ -145,5 +145,14 @@ class MY_Controller extends CI_Controller
         $perm = $permission_cache[$cache_key];
 
         return ($perm && !empty($perm['can_' . $action]) && $perm['can_' . $action] == 1);
+    }
+    protected function ajax_only()
+    {
+        if (!$this->input->is_ajax_request()) {
+            $this->session->set_flashdata('danger', 'Invalid request method.');
+            $module = strtolower($this->router->fetch_class());
+            redirect($module);
+            exit;
+        }
     }
 }

@@ -12,6 +12,7 @@ class Auth extends CI_Controller
     }
     public function check_session()
     {
+        $this->ajax_only();
         if (!$this->session->userdata('logged_in')) {
             echo json_encode(['expired' => true]);
             return;
@@ -26,6 +27,7 @@ class Auth extends CI_Controller
 
     public function extend_session()
     {
+        $this->ajax_only();
         if ($this->session->userdata('logged_in')) {
             $this->session->set_userdata('last_activity', time());
             echo json_encode(['status' => 'extended']);
@@ -35,5 +37,14 @@ class Auth extends CI_Controller
     {
         $this->auth_model->logout();
         redirect('login');
+    }
+    public function ajax_only()
+    {
+        if (!$this->input->is_ajax_request()) {
+            $msg = 'Invalid request method.';
+            $this->session->set_flashdata('danger', $msg);
+            echo json_encode(['status' => 'error', 'message' => $msg]);
+            exit;
+        }
     }
 }

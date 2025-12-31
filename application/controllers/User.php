@@ -29,12 +29,14 @@ class User extends MY_Controller
     }
     public function add_user()
     {
+        $this->ajax_only();
         $data['outlet'] = $this->Outlet_model->get_outlet();
         $data['roles'] = $this->Roles_model->get_all_roles();
         $this->load->view('users/add_user_modal', $data);
     }
     public function add()
     {
+        $this->ajax_only();
         $this->db->trans_start();
         $name = $this->input->post('name', true);
         $email = $this->input->post('email', true);
@@ -88,6 +90,7 @@ class User extends MY_Controller
     }
     public function edit_user($user_id)
     {
+        $this->ajax_only();
         $data['outlet'] = $this->Outlet_model->get_outlet();
         $data['roles'] = $this->Roles_model->get_all_roles();
         $data['user'] = $this->Users_model->get_user_by($user_id);
@@ -95,6 +98,7 @@ class User extends MY_Controller
     }
     public function edit()
     {
+        $this->ajax_only();
         $this->db->trans_start();
         $user_id = $this->input->post('user_id', true);
         $name = $this->input->post('name', true);
@@ -160,6 +164,7 @@ class User extends MY_Controller
     }
     public function delete_user($user_id)
     {
+        $this->ajax_only();
         $this->db->trans_start();
         $user = $this->Users_model->get_user_by($user_id);
         if (!$user) {

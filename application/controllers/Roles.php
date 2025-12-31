@@ -12,6 +12,7 @@ class Roles extends MY_Controller
     }
     public function index()
     {
+
         $this->check_permission('read');
         $data['title'] = 'Roles List';
         $data['activeurl'] = 'roles';
@@ -25,10 +26,12 @@ class Roles extends MY_Controller
     }
     public function add_role()
     {
+        $this->ajax_only();
         $this->load->view('roles/add_role_modal');
     }
     public function add()
     {
+        $this->ajax_only();
         $this->db->trans_start();
         $role_name = $this->input->post('role_name', true);
         $active = ($this->input->post('active', true) !== null) ? 1 : 0;
@@ -46,6 +49,7 @@ class Roles extends MY_Controller
     }
     public function edit_role($role_id)
     {
+        $this->ajax_only();
         $role =  $this->db->get_where('roles', ['id' => $role_id])->row();
         $data['role'] = $role;
         $data['login_role_id'] = $this->session->userdata('role_id');
@@ -53,6 +57,7 @@ class Roles extends MY_Controller
     }
     public function edit()
     {
+        $this->ajax_only();
         $this->db->trans_start();
         $role_id = $this->input->post('role_id', true);
         $role_name = $this->input->post('role_name', true);
@@ -76,6 +81,7 @@ class Roles extends MY_Controller
     }
     public function delete_role($role_id)
     {
+        $this->ajax_only();
         $this->db->trans_start();
         $check_role = $this->db->get_where('users', ['role_id' => $role_id, 'deleted' => 0])->row();
         if ($check_role) {
@@ -100,6 +106,7 @@ class Roles extends MY_Controller
     }
     public function edit_role_access($role_id)
     {
+        $this->ajax_only();
         $data['login_role_id'] = $this->session->userdata('role_id');
         $data['role'] = $this->Roles_model->get_role_by_id($role_id);
         $data['modules'] = $this->Modules_model->get_modules_tree();
@@ -109,6 +116,7 @@ class Roles extends MY_Controller
     }
     public function update_access()
     {
+        $this->ajax_only();
         $permissions_input = $this->input->post('permissions', true);
         $role_id = $this->input->post('role_id', true);
         $login_role_id = $this->session->userdata('role_id');
@@ -128,8 +136,7 @@ class Roles extends MY_Controller
         }
 
         $this->db->trans_start();
-        $this->Permission_model->reset_role_access($role_id);
-        $this->Permission_model->reset_role_permissions($role_id);
+
         $data_role_permissions = [];
         $data_role_access = [];
         if ($permissions_input) {
@@ -156,6 +163,12 @@ class Roles extends MY_Controller
                     'created_by' => $this->session->userdata('user_id'),
                 ];
             }
+        }
+        log_action_delete($data_role_permissions, 'role_permissions', 'role_id', $role_id, 'delete');
+        log_action_delete($data_role_access, 'role_access', 'role_id', $role_id, 'delete');
+        $this->Permission_model->reset_role_access($role_id);
+        $this->Permission_model->reset_role_permissions($role_id);
+        if ($permissions_input) {
             $this->Permission_model->save_role_permission($data_role_permissions);
             $this->Permission_model->save_role_access($data_role_access);
         }

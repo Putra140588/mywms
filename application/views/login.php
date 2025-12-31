@@ -43,13 +43,13 @@
 
             <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12 p-lg-20">
                 <div class="bg-body d-flex flex-column align-items-stretch flex-center rounded-4 w-md-600px p-20">
+                    <?php $this->load->view('layouts/global_notif_alert'); ?>
                     <div class="d-flex flex-center flex-column flex-column-fluid px-lg-10 pb-15 pb-lg-20">
                         <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="<?= base_url('dashboard') ?>" action="<?= base_url('login/check') ?>">
                             <div class="text-center mb-11">
                                 <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
                                 <div class="text-gray-500 fw-semibold fs-6">My WMS</div>
                             </div>
-
                             <div class="fv-row mb-8">
                                 <input type="text" placeholder="User Name" name="username" autocomplete="off" class="form-control bg-transparent" />
                             </div>

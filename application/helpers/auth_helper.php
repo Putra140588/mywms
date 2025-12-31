@@ -27,3 +27,13 @@ function is_superadmin()
     $CI = &get_instance();
     return (int)$CI->session->userdata('role_id') === 1;
 }
+function ajax_only()
+{
+    $CI = &get_instance();
+    // Check if request is AJAX
+    if (!$CI->input->is_ajax_request()) {
+        $CI->session->set_flashdata('danger', 'Invalid request method.');
+        redirect('dashboard');
+        exit;
+    }
+}
