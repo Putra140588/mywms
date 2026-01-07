@@ -21,10 +21,10 @@ class Roles_model extends CI_Model
         $this->db->order_by('roles.id', 'DESC');
         return $this->db->get()->result();
     }
-    public function get_modules()
+    public function get_modules($role_id)
     {
         $this->db->select('rp.* , m.url, m.name as module_name');
-        $this->db->from('role_perm issions rp');
+        $this->db->from('role_permissions rp');
         $this->db->join('modules m', 'm.id = rp.module_id', 'left');
         $this->db->where('rp.role_id', $role_id);
         return $this->db->get()->result_array();

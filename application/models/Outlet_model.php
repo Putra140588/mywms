@@ -14,4 +14,16 @@ class Outlet_model extends CI_Model
         $this->db->order_by('id', 'ASC');
         return $this->db->get('outlet')->result();
     }
+    public function get_list_outlet()
+    {
+        $this->db->where('deleted', 0);
+        $this->db->order_by('id', 'ASC');
+        return $this->db->get('outlet')->result();
+    }
+    public function get_outlet_by($outlet_id)
+    {
+        $this->db->where('id', $outlet_id);
+        $this->db->where('deleted', 0);
+        return $this->db->get('outlet')->row();
+    }
 }

@@ -1,0 +1,45 @@
+<div class="modal-header" id="kt_modal_add_currency_header">
+    <h2 class="fw-bold">Edit Currency</h2>
+    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-modal-action="close">
+        <i class="ki-outline ki-cross fs-1"></i>
+    </div>
+</div>
+
+<div class="modal-body px-5 my-7">
+    <form id="kt_modal_add_currency_form" class="form" action="<?= base_url('currency/edit') ?>" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="currency_id" value="<?= $currency->id ?>" />
+        <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_currency_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_currency_header" data-kt-scroll-wrappers="#kt_modal_add_currency_scroll" data-kt-scroll-offset="300px">
+            <div class="fv-row mb-7">
+                <label class="required fw-semibold fs-6 mb-2">Currency Code</label>
+                <input type="text" name="code" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Outlet code" value="<?= htmlspecialchars($currency->code) ?>" />
+            </div>
+            <div class="fv-row mb-7">
+                <label class="required fw-semibold fs-6 mb-2">Currency Name</label>
+                <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Outlet name" value="<?= htmlspecialchars($currency->name) ?>" />
+            </div>
+            <div class="fv-row mb-7">
+                <label class="required fw-semibold fs-6 mb-2">Currency Symbol</label>
+                <input type="text" name="symbol" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Currency symbol" value="<?= htmlspecialchars($currency->symbol) ?>" />
+            </div>
+            <div class="fv-row mb-7">
+                <div class="d-flex flex-stack">
+                    <div class="me-5">
+                        <label class="fs-6 fw-semibold">Set currency as active ?</label>
+                    </div>
+                    <label class="form-check form-switch form-check-custom form-check-solid">
+                        <input class="form-check-input" name="active" type="checkbox" value="1" <?= $currency->active ? 'checked' : '' ?> />
+                        <span class="form-check-label fw-semibold text-muted">Yes</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="text-center pt-10">
+            <button type="reset" class="btn btn-light me-3" data-kt-modal-action="cancel">Discard</button>
+            <button type="submit" class="btn btn-primary" data-kt-modal-action="submit">
+                <span class="indicator-label">Submit</span>
+                <span class="indicator-progress">Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+            </button>
+        </div>
+    </form>
+</div>

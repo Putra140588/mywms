@@ -19,6 +19,17 @@ $(document).ready(function() {
         );
     });
 });
+// Restrict input to numbers, dot, and comma
+$(document).on('input', 'input[data-number-only]', function() {
+    this.value = this.value.replace(/[^0-9.,]/g, '');
+    // Auto number format: add thousand separators
+    let val = this.value.replace(/,/g, '');
+    if(val) {
+        let parts = val.split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.value = parts.join('.');
+    }
+});
 
 /**
  * Global AJAX handler to catch 401 Unauthorized responses
@@ -169,6 +180,18 @@ function initAjaxModal() {
     if (typeof KTUpdateRoleAccess !== 'undefined') {
         KTUpdateRoleAccess.init();
     }
+    if (typeof KTModules !== 'undefined') {
+        KTModules.init();
+    }
+    if (typeof KTOutlet !== 'undefined') {
+        KTOutlet.init();
+    }
+    if (typeof KTCurrency !== 'undefined') {
+        KTCurrency.init();
+    }
+    if (typeof KTExchangerate !== 'undefined') {
+        KTExchangerate.init();
+    }
 }
  function ajaxModal(url, modalId, loadform = true) {
         const $modal = $('#' + modalId);
@@ -274,5 +297,8 @@ function confirmDelete() {
             });
         });
     }
+
+
+
 
 

@@ -88,7 +88,7 @@ class User extends MY_Controller
         $this->db->trans_complete();
         echo json_encode(['status' => 'success', 'message' => 'User added successfully.']);
     }
-    public function edit_user($user_id)
+    public function edit_user($user_id = null)
     {
         $this->ajax_only();
         $data['outlet'] = $this->Outlet_model->get_outlet();
@@ -162,7 +162,7 @@ class User extends MY_Controller
         $this->db->trans_complete();
         echo json_encode(['status' => 'success', 'message' => 'User updated successfully.']);
     }
-    public function delete_user($user_id)
+    public function delete_user($user_id = null)
     {
         $this->ajax_only();
         $this->db->trans_start();

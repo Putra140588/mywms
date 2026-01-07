@@ -9,7 +9,7 @@ class Modules_model extends CI_Model
     }
     public function get_modules_tree()
     {
-        $query = $this->db->where('active', 1)
+        $query = $this->db->where('active', 1)->where('deleted', 0)
             ->order_by('parentid ASC, sort ASC')
             ->get('modules');
         $modules = $query->result_array();
@@ -41,6 +41,7 @@ class Modules_model extends CI_Model
         $this->db->join('role_access ra', 'ra.module_id = m.id');
         $this->db->where('ra.role_id', $role_id);
         $this->db->where('m.active', 1);
+        $this->db->where('m.deleted', 0);
         $this->db->order_by('m.parentid, m.sort');
 
         return $this->db->get()->result_array();
@@ -49,5 +50,13 @@ class Modules_model extends CI_Model
     {
         $modules = $this->get_modules_by_role($role_id);
         return $this->build_tree($modules);
+    }
+    public function get_parent_modules()
+    {
+        return $this->db->where('deleted', 0)
+            ->where('parentid', 0)
+            ->order_by('parentid ASC, sort ASC')
+            ->get('modules')
+            ->result();
     }
 }
