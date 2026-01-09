@@ -24,25 +24,29 @@
                     <div class="card-body">
                         <div class="card-px text-center pt-15 pb-15">
                             <h2 class="fs-2x fw-bold mb-0">Find product stock from all warehouses</h2>
-
                             <p class="text-gray-400 fs-4 fw-semibold py-7">Click on the below buttons to scan product <br />Barcode or QR code.
-
                             </p>
-
-                            <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal" data-bs-target="#kt_modal_bidding">
+                          
+                            <button type="button"
+                                class="btn btn-primary er fs-6 px-8 py-4"
+                                onclick="ajaxModal('<?= base_url('dashboard/scanproduct') ?>','kt_modal_scan_product',false)">
                                 <i class="fas fa-qrcode me-2"></i>Scan Barcode
+                            </button>
                         </div>
                         <div class="text-center pb-15 px-5">
                             <img src="assets/media/illustrations/sketchy-1/2.png" alt="" class="mw-100 h-200px h-sm-325px" />
                         </div>
                     </div>
-                    <!--end::Card body-->
                 </div>
-                <!--end::Card-->
             </div>
-            <!--end::Content container-->
         </div>
-
+    </div>
+    <div class="modal fade" id="kt_modal_scan_product" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content">
+                <!--begin::Modal header-->
+            </div>
+        </div>
     </div>
     <?php $this->load->view('layouts/copyright'); ?>
 </div>

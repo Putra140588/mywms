@@ -193,6 +193,9 @@ function initAjaxModal() {
     if (typeof KTExchangerate !== 'undefined') {
         KTExchangerate.init();
     }
+    if (typeof KTScanproduct !== 'undefined') {
+        KTScanproduct.init();
+    }   
 }
  function ajaxModal(url, modalId, loadform = true) {
         const $modal = $('#' + modalId);
