@@ -19,6 +19,7 @@ $(document).ready(function() {
         );
     });
 });
+
 // Restrict input to numbers, dot, and comma
 $(document).on('input', 'input[data-number-only]', function() {
     this.value = this.value.replace(/[^0-9.,]/g, '');

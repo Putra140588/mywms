@@ -1,12 +1,12 @@
 <div class="modal-header" id="kt_modal_add_user_header">
-    <h2 class="fw-bold">Add Exchange Rate</h2>
+    <h2 class="fw-bold">Edit Exchange Rate</h2>
     <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-modal-action="close">
         <i class="ki-outline ki-cross fs-1"></i>
     </div>
 </div>
 
 <div class="modal-body px-5 my-7">
-    <form id="kt_modal_add_exchangerate_form" class="form" action="<?= base_url('exchangerate/add') ?>" method="post" enctype="multipart/form-data">
+    <form id="kt_modal_add_exchangerate_form" class="form" action="<?= base_url('exchangerate/edit') ?>" method="post" enctype="multipart/form-data">
         <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_exchangerate_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_exchangerate_header" data-kt-scroll-wrappers="#kt_modal_add_exchangerate_scroll" data-kt-scroll-offset="300px">
             <div class="d-flex flex-column mb-7 fv-row">
                 <label class="required fw-semibold fs-6 mb-2">Currency Foreign</label>

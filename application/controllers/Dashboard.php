@@ -12,7 +12,7 @@ class Dashboard extends MY_Controller
         $this->check_permission('read');
         $data['title'] = 'Dashboard';
         $data['activeurl'] = 'dashboard';
-        loadview('dashboard/index', $data);
+        loadview('dashboard/scanproduct', $data);
     }
     public function clear_cache()
     {

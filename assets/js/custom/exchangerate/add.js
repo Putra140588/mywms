@@ -42,7 +42,12 @@ var KTExchangerate = function () {
                                 message: "The value is not a valid number",
                                 thousandsSeparator: ',',
                                 decimalSeparator: '.'
+                            },
+                            regexp: {
+                                regexp: /^\d{1,3}([.,]\d{3})*([.,]\d{1,2})?$/,
+                                message: "Maximum 3 digits allowed after decimal separator"
                             }
+
                         }
                     },
                     rate_date: {
@@ -51,7 +56,7 @@ var KTExchangerate = function () {
                                 message: "Rate date is required"
                             },
                             date: {
-                                format: 'YYYY-MM-DD',
+                                format: 'DD-MM-YYYY',
                                 message: 'The value is not a valid date'
                             }
                         }
@@ -61,7 +66,7 @@ var KTExchangerate = function () {
                             notEmpty: {
                                 message: "Rate time is required"
                             },
-                            date: {
+                            time: {
                                 format: 'HH:mm',
                                 message: 'The value is not a valid time'
                             }
