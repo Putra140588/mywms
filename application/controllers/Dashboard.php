@@ -27,27 +27,27 @@ class Dashboard extends MY_Controller
         $this->session->set_flashdata('success', 'Cache cleared successfully.');
         redirect('dashboard');
     }
-    public function scanproduct(){
-         $this->ajax_only();
-          $this->load->view('dashboard/scanproduct_modal');
+    public function scanproduct()
+    {
+        $this->ajax_only();
+        $this->load->view('dashboard/scanproduct_modal');
     }
     public function ScanResult()
     {
-        
-        $barcode = $this->input->post('barcode',true);
+
+        $barcode = $this->input->post('barcode', true);
         $stock = $this->Product_stock_model->getStockByBarcode($barcode);
-        pre($stock);
-        if (empty($stock)){
+        if (empty($stock)) {
             echo json_encode([
                 'status' => 'error',
                 'message' => "Product Not Found!"
             ]);
             return;
         }
-        $html="";
+        $html = "";
         $data['stock'] = $stock;
         $data['barcode'] = $barcode;
-        $html .= $this->load->view('dashboard/scanproduct_result',$data,true);
+        $html .= $this->load->view('dashboard/scanproduct_result', $data, true);
         echo json_encode([
             'status' => 'success',
             'html' => $html

@@ -31,12 +31,12 @@
                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                     <button type="button"
                                         class="btn btn-primary"
-                                        onclick="ajaxModal('<?= base_url('outlet/add_outlet') ?>','kt_modal_add_outlet',false)">
-                                        <i class="ki-outline ki-plus fs-2"></i>Add Outlet
+                                        onclick="ajaxModal('<?= base_url('product/add_product') ?>','kt_modal_add_product',false)">
+                                        <i class="ki-outline ki-plus fs-2"></i>Add Product
                                     </button>
                                 </div>
                             <?php endif; ?>
-                            <div class="modal fade" id="kt_modal_add_outlet" tabindex="-1" aria-hidden="true">
+                            <div class="modal fade" id="kt_modal_add_product" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered mw-650px">
                                     <div class="modal-content">
                                         <!--begin::Modal header-->
@@ -51,9 +51,20 @@
                             <thead>
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                     <th class="w-10px pe-2"> No </th>
-                                    <th class="min-w-100px">Code</th>
+                                    <th class="min-w-100px">Image</th>
+                                    <th class="min-w-100px">Part Number</th>
                                     <th class="min-w-100px">Name</th>
+                                    <th class="min-w-100px">Price</th>
+                                    <th class="min-w-100px">Model</th>
+                                    <th class="min-w-100px">Category</th>
+                                    <th class="min-w-100px">UOM</th>
+                                    <th>Min Stock</th>
+                                    <th>Max Stock</th>
                                     <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Created By</th>
+                                    <th>Updated At</th>
+                                    <th>Updated By</th>
                                     <?php if (!$hide_actions) : ?>
                                         <th class="text-end min-w-100px no-export">Actions</th>
                                     <?php endif; ?>
@@ -62,19 +73,31 @@
                             <tbody class="text-gray-600 fw-semibold">
                                 <?php
                                 $no = 1;
-                                foreach ($outlets as $out) :
+                                foreach ($products as $product) :
+                                    $active_badge = ($product->active == 1) ? '<span class="badge badge-light-success">Active</span>' : '<span class="badge badge-light-danger">Inactive</span>';
                                 ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
-                                        <td><?= htmlspecialchars($out->code) ?></td>
-                                        <td><?= htmlspecialchars($out->name) ?></td>
                                         <td>
-                                            <?php if ($out->active) : ?>
-                                                <span class="badge badge-light-success">Active</span>
+                                            <?php if ($product->image) : ?>
+                                                <img src="<?= base_url('uploads/product/' . $product->image) ?>" alt="Product Image" width="50">
                                             <?php else : ?>
-                                                <span class="badge badge-light-danger">Inactive</span>
+                                                <span>No Image</span>
                                             <?php endif; ?>
                                         </td>
+                                        <td><?= htmlspecialchars($product->sku) ?></td>
+                                        <td><?= htmlspecialchars($product->name) ?></td>
+                                        <td><?= htmlspecialchars($product->pricesale) ?></td>
+                                        <td><?= htmlspecialchars($product->model_name) ?></td>
+                                        <td><?= htmlspecialchars($product->categoryid) ?></td>
+                                        <td><?= htmlspecialchars($product->uom) ?></td>
+                                        <td><?= htmlspecialchars($product->minstock) ?></td>
+                                        <td><?= htmlspecialchars($product->maxstock) ?></td>
+                                        <td><?= $active_badge ?></td>
+                                        <td><?= htmlspecialchars($product->created_at) ?></td>
+                                        <td><?= htmlspecialchars($product->created_by_name) ?></td>
+                                        <td><?= htmlspecialchars($product->updated_at) ?></td>
+                                        <td><?= htmlspecialchars($product->updated_by_name) ?></td>
                                         <?php if (!$hide_actions) : ?>
                                             <td class="text-end no-export">
                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm btn-actions" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -82,12 +105,12 @@
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4 menu-actions" data-kt-menu="true">
                                                     <?php if ($can_update) : ?>
                                                         <div class="menu-item px-3">
-                                                            <a href="javascript:void(0);" onclick="ajaxModal('<?= base_url('outlet/edit_outlet/' . $out->id) ?>','kt_modal_add_outlet',false)" class="menu-link px-3">Edit</a>
+                                                            <a href="javascript:void(0);" onclick="ajaxModal('<?= base_url('product/edit_product/' . $product->id) ?>','kt_modal_add_product',false)" class="menu-link px-3">Edit</a>
                                                         </div>
                                                     <?php endif; ?>
                                                     <?php if ($can_delete) : ?>
                                                         <div class="menu-item px-3">
-                                                            <a href="javascript:void(0);" class="menu-link px-3" data-row-delete="delete_row" data-url="<?= base_url('outlet/delete/' . $out->id) ?>">Delete</a>
+                                                            <a href="javascript:void(0);" class="menu-link px-3" data-row-delete="delete_row" data-url="<?= base_url('product/delete_product/' . $product->id) ?>">Delete</a>
                                                         </div>
                                                     <?php endif; ?>
                                                 </div>

@@ -1,4 +1,9 @@
-<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<!-- GLOBAL PAGE LOADER -->
+<div id="page-loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
 <script src="<?= base_url() ?>assets/datatables/js/jquery-3.7.1.js"></script>
 <script src="<?= base_url() ?>assets/js/scripts.bundle.js"></script>
 <script>
@@ -38,5 +43,13 @@
 <script src="<?= base_url() ?>assets/datatables/js/buttons.html5.min.js"></script>
 <script src="<?= base_url() ?>assets/datatables/js/buttons.print.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/global/plugins.bundle.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            document.getElementById('page-loader').style.display = 'none';
+        }, 300); // delay halus
+    });
+</script>
+
 <?php $script_js = isset($script_js) ? $this->load->view($script_js) : ''; ?>
 <script src="<?= base_url() ?>assets/js/globalscript.js"></script>

@@ -1,15 +1,15 @@
 "use strict";
 
-var KTOutlet = function () {
+var KTProduct = function () {
     let modalEl;
     let formEl;
     let modal;
 
     return {
         init: function () {
-            modalEl = document.getElementById("kt_modal_add_outlet");
+            modalEl = document.getElementById("kt_modal_add_product");
             if (!modalEl) return;
-            formEl = modalEl.querySelector("#kt_modal_add_outlet_form");
+            formEl = modalEl.querySelector("#kt_modal_add_product_form");
             if (!formEl) return;
 
             modal = bootstrap.Modal.getOrCreateInstance(modalEl);
@@ -51,7 +51,7 @@ var KTOutlet = function () {
             if (submitBtn) {
                 submitBtn.addEventListener("click", function (e) {
                     e.preventDefault();
-                    loading(true);
+
                     validator.validate().then(function (status) {
                         if (status === 'Valid') {
                             submitBtn.setAttribute("data-kt-indicator", "on");
@@ -76,7 +76,6 @@ var KTOutlet = function () {
                                     submitBtn.removeAttribute("data-kt-indicator");
                                     submitBtn.disabled = false;
                                     if (data.status === 'success') {
-                                        loading(false);
                                         Swal.fire({
                                             text: data.message || "Form has been successfully submitted!",
                                             icon: "success",
@@ -90,7 +89,6 @@ var KTOutlet = function () {
                                             formEl.reset();
                                         });
                                     } else {
-                                        loading(false);
                                         Swal.fire({
                                             text: data.message || "Submission failed. Please try again.",
                                             icon: "error",
@@ -103,7 +101,6 @@ var KTOutlet = function () {
                                     }
                                 })
                                 .catch(() => {
-                                    loading(false);
                                     submitBtn.removeAttribute("data-kt-indicator");
                                     submitBtn.disabled = false;
                                     Swal.fire({
@@ -118,7 +115,6 @@ var KTOutlet = function () {
                                 });
                             }, 200);
                         } else {
-                            loading(false);
                             Swal.fire({
                                 text: "Sorry, looks like there are some errors detected, please try again.",
                                 icon: "error",
@@ -142,6 +138,7 @@ var KTOutlet = function () {
 
                 btn.addEventListener("click", function (e) {
                     e.preventDefault();
+
                     Swal.fire({
                         text: "Are you sure you would like to cancel?",
                         icon: "warning",

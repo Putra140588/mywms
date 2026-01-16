@@ -19,6 +19,13 @@ $(document).ready(function() {
         );
     });
 });
+function loading(status=true) {
+    if(status) {
+        $('#page-loader').show();
+    } else {
+        $('#page-loader').hide();
+    }
+}
 
 // Restrict input to numbers, dot, and comma
 $(document).on('input', 'input[data-number-only]', function() {
@@ -195,6 +202,9 @@ function initAjaxModal() {
     }
     if (typeof KTScanproduct !== 'undefined') {
         KTScanproduct.init();
+    }  
+     if (typeof KTProduct !== 'undefined') {
+        KTProduct.init();
     }   
 }
  function ajaxModal(url, modalId, loadform = true) {
@@ -203,7 +213,7 @@ function initAjaxModal() {
         $.ajax({
             url: url,
             type: 'POST',
-            data: $('#form-ajax').length ? $('#form-ajax').serialize() : {},
+            // data: $('#form-ajax').length ? $('#form-ajax').serialize() : {},
             cache: false,
             success: function(html) {
                 // ⛔ JANGAN timpa modal
@@ -235,7 +245,6 @@ function confirmDelete() {
                 var userRow = button.closest("tr");
                 var userName = userRow.querySelectorAll("td")[1].innerText;
                 var deleteUrl = button.getAttribute("data-url");
-              
                 Swal.fire({
                     text: "Are you sure you want to delete " + userName + "?",
                     icon: "warning",
@@ -249,6 +258,7 @@ function confirmDelete() {
                     }
                 }).then(function(result) {
                     if (result.isConfirmed) {
+                        loading(true);
                         // Lakukan permintaan AJAX untuk menghapus pengguna
                         $.ajax({
                             url: deleteUrl,
@@ -280,13 +290,16 @@ function confirmDelete() {
                                         }
                                     });
                                 }
+                                loading(false);
                             },
                             error: function(xhr) {
+                                loading(false);
                                 console.error(xhr.responseText);
                             }
                         });
                        
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        loading(false);
                         Swal.fire({
                             text: userName + " was not deleted.",
                             icon: "error",
